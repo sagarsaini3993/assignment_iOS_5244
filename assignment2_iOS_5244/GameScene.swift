@@ -15,21 +15,21 @@ class GameScene: SKScene {
     var player:SKNode!
     var jumpButton:SKLabelNode!
     var level1 : SKNode!
-     var level2 : SKNode!
-     var level3 : SKNode!
-     var level4 : SKNode!
+    var level2 : SKNode!
+    var level3 : SKNode!
+    var level4 : SKNode!
     
     // GAME STAT SPRITES
     let livesLabel = SKLabelNode(text: "Lives: ")
-   
-  
-
-
+    let enemy = SKSpriteNode(imageNamed: "enemy")
+    
+    
+    
     
     // GAME STATISTIC VARIABLES
     var lives = 2
-      var movingEnemyRight :Bool = true
-
+    var movingEnemyRight :Bool = true
+    
     
     override func didMove(to view: SKView) {
         
@@ -38,15 +38,15 @@ class GameScene: SKScene {
         
         //sprites
         self.level1 = self.childNode(withName: "level1")
-         self.level2 = self.childNode(withName: "level2")
-         self.level3 = self.childNode(withName: "level3")
-         self.level4 = self.childNode(withName: "level4")
-      // level1.position = CGPoint(x:self.size.width/2, y:self.size.height/2)
+        self.level2 = self.childNode(withName: "level2")
+        self.level3 = self.childNode(withName: "level3")
+        self.level4 = self.childNode(withName: "level4")
+        // level1.position = CGPoint(x:self.size.width/2, y:self.size.height/2)
         self.jumpButton = self.childNode(withName: "jumpButton") as! SKLabelNode
         self.player = self.childNode(withName: "player")
         
         
-   
+        
         
         
         var playerTextures:[SKTexture] = []
@@ -74,8 +74,8 @@ class GameScene: SKScene {
         
         // MARK: Add your sprites to the screen
         addChild(livesLabel)
-       
-
+        
+        self.makeEnemies()
         
     }
     
@@ -89,10 +89,9 @@ class GameScene: SKScene {
         player.run(seq, withKey: forTheKey)
     }
     
-    
+    //--------------------------------touch function-------------------------------
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
-        
+     
         let touch = touches.first
         if (touch == nil) {
             return
@@ -110,28 +109,23 @@ class GameScene: SKScene {
                 duration: 0.5)
             
             self.player.run(jumpAction)
-
             
-
         }
-        
-        
-        
         
         if (spriteTouched.name == "up") {
             print("UP PRESSED")
             if(self.player.position.y <= self.frame.size.height-250)
             {
-            self.player.position.y = self.player.position.y + 150
+                self.player.position.y = self.player.position.y + 150
             }
             
-     
+            
         }
         else if (spriteTouched.name == "down") {
             print("DOWN PRESSED")
             if(self.player.position.y >= 150)
             {
-            self.player.position.y = self.player.position.y - 150
+                self.player.position.y = self.player.position.y - 150
             }
         }
         else if (spriteTouched.name == "left") {
@@ -145,10 +139,12 @@ class GameScene: SKScene {
         
     }
     
+    //---------------------Update function--------------------------------
+     var timeOfLastUpdate:TimeInterval?
     override func update(_ currentTime: TimeInterval) {
         
-
-//        self.player.position.x = self.player.position.x + 10
+        
+        //self.player.position.x = self.player.position.x + 10
         
         if (self.player.position.x >= self.size.width) {
             self.player.position.x = 10
@@ -157,71 +153,55 @@ class GameScene: SKScene {
             self.player.position.x = self.size.width-100
         }
         
-        self.makeEnemies()
-
+        //move enemy
         
-    }
-    
-    var enemies:[SKSpriteNode] = []
-    
-    func makeEnemies() {
-        // lets add some enemies
-        let enemy = SKSpriteNode(imageNamed: "enemy")
-
         
-        // generate a random (x,y) for the cat
-        let randX = Int(CGFloat(arc4random_uniform(UInt32(self.size.width-100))))
-        let randY = 100
-        
-        enemy.position = CGPoint(x:randX, y:randY)
-        
-        // add the enemy to the scene
-        
-        // add the enemy to the enemies array
-//        self.enemies.append(enemy)
-        
-        if enemies.count < 2 {
-            addChild(enemy)
-            self.enemies.append(enemy)
+        if(movingEnemyRight == true)
+        {
+            let RightMoveAction = SKAction.scaleX(to: +1, duration: 0)
+            self.enemy.run(RightMoveAction)
+            enemy.position.x =     enemy.position.x + 10;
+            if(enemy.position.x >= self.frame.width)
+            {
+                movingEnemyRight = false
+            }
+        }
+        else if (movingEnemyRight == false){
+            
+            let leftMoveAction = SKAction.scaleX(to: -1, duration: 0)
+            self.enemy.run(leftMoveAction)
+            enemy.position.x =     enemy.position.x - 10;
+            if(enemy.position.x <= 0)
+            {
+                movingEnemyRight = true
+            }
             
         }
         
+//        if (timeOfLastUpdate == nil) {
+//            timeOfLastUpdate = currentTime
+//        }
+//        // print a message every 3 seconds
+//        var timePassed = (currentTime - timeOfLastUpdate!)
+//        if (timePassed >= 1.5) {
+//            print("HERE IS A MESSAGE!")
+//            timeOfLastUpdate = currentTime
+//            // make a cat
+//            self.makeEnemies()
+//        }
+//
+    }
+   
+    func makeEnemies() {
+        // lets add some enemies
+        // generate a random (x,y) for the cat
+        let randX = Int(level1.position.x )
+        let randY = Int(level1.position.y + 70)
+        enemy.position = CGPoint(x:randX, y:randY)
+        print("enemy position \(randX) \(randY)")
+        addChild(enemy)
         
-                for (i, enemy) in self.enemies.enumerated() {
-                    print("Moving enemy : \(i)")
-                  if(movingEnemyRight == true)
-                  {
-                    let RightMoveAction = SKAction.scaleX(to: +1, duration: 0)
-                    self.enemies[i].run(RightMoveAction)
-                     enemies[i].position.x =     enemies[i].position.x + 10;
-                    if(enemies[i].position.x >= self.frame.width)
-                    {
-                        movingEnemyRight = false
-                    }
-                }
-                  else if (movingEnemyRight == false){
-               
-                    let leftMoveAction = SKAction.scaleX(to: -1, duration: 0)
-                    self.enemies[i].run(leftMoveAction)
-                       enemies[i].position.x =     enemies[i].position.x - 10;
-                    if(enemies[i].position.x <= 0)
-                    {
-                        movingEnemyRight = true
-                    }
-                    }
-                    
-                    
-                    
-        }
-
-        
-        
-        
-        print("Where is enemy? \(randX), \(randY)")
     }
     
-    
-   
-    
-    
 }
+
