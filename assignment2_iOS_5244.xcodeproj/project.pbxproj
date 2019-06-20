@@ -17,7 +17,9 @@
 		9B176FD222B7C0BB004E5649 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B176FD022B7C0BB004E5649 /* LaunchScreen.storyboard */; };
 		9B1F8F3822BC261E001B1F5A /* LoseGame.sks in Resources */ = {isa = PBXBuildFile; fileRef = 9B1F8F3722BC261E001B1F5A /* LoseGame.sks */; };
 		9B1F8F4022BC2F29001B1F5A /* LoseGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B1F8F3F22BC2F29001B1F5A /* LoseGame.swift */; };
-		9BEADB5A22BC400F00A2773E /* game.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9BEADB5922BC400F00A2773E /* game.mp3 */; };
+		9BAB8E1222BC466E00C1A5DC /* game.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9BAB8E1122BC466E00C1A5DC /* game.mp3 */; };
+		9BAB8E1422BC4A6100C1A5DC /* WinGame.sks in Resources */ = {isa = PBXBuildFile; fileRef = 9BAB8E1322BC4A6100C1A5DC /* WinGame.sks */; };
+		9BAB8E1622BC4BDF00C1A5DC /* WinGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BAB8E1522BC4BDF00C1A5DC /* WinGame.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,7 +35,9 @@
 		9B176FD322B7C0BB004E5649 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9B1F8F3722BC261E001B1F5A /* LoseGame.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = LoseGame.sks; sourceTree = "<group>"; };
 		9B1F8F3F22BC2F29001B1F5A /* LoseGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoseGame.swift; sourceTree = "<group>"; };
-		9BEADB5922BC400F00A2773E /* game.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = game.mp3; path = ../../Downloads/game.mp3; sourceTree = "<group>"; };
+		9BAB8E1122BC466E00C1A5DC /* game.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = game.mp3; sourceTree = "<group>"; };
+		9BAB8E1322BC4A6100C1A5DC /* WinGame.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = WinGame.sks; sourceTree = "<group>"; };
+		9BAB8E1522BC4BDF00C1A5DC /* WinGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WinGame.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,7 +54,7 @@
 		9B176FB522B7C0B9004E5649 = {
 			isa = PBXGroup;
 			children = (
-				9BEADB5922BC400F00A2773E /* game.mp3 */,
+				9BAB8E1122BC466E00C1A5DC /* game.mp3 */,
 				9B176FC022B7C0B9004E5649 /* assignment2_iOS_5244 */,
 				9B176FBF22B7C0B9004E5649 /* Products */,
 			);
@@ -78,6 +82,8 @@
 				9B176FD322B7C0BB004E5649 /* Info.plist */,
 				9B1F8F3722BC261E001B1F5A /* LoseGame.sks */,
 				9B1F8F3F22BC2F29001B1F5A /* LoseGame.swift */,
+				9BAB8E1322BC4A6100C1A5DC /* WinGame.sks */,
+				9BAB8E1522BC4BDF00C1A5DC /* WinGame.swift */,
 			);
 			path = assignment2_iOS_5244;
 			sourceTree = "<group>";
@@ -142,7 +148,8 @@
 			files = (
 				9B176FCD22B7C0B9004E5649 /* Main.storyboard in Resources */,
 				9B176FC422B7C0B9004E5649 /* GameScene.sks in Resources */,
-				9BEADB5A22BC400F00A2773E /* game.mp3 in Resources */,
+				9BAB8E1422BC4A6100C1A5DC /* WinGame.sks in Resources */,
+				9BAB8E1222BC466E00C1A5DC /* game.mp3 in Resources */,
 				9B1F8F3822BC261E001B1F5A /* LoseGame.sks in Resources */,
 				9B176FCF22B7C0BB004E5649 /* Assets.xcassets in Resources */,
 				9B176FD222B7C0BB004E5649 /* LaunchScreen.storyboard in Resources */,
@@ -157,6 +164,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9BAB8E1622BC4BDF00C1A5DC /* WinGame.swift in Sources */,
 				9B176FC822B7C0B9004E5649 /* GameScene.swift in Sources */,
 				9B1F8F4022BC2F29001B1F5A /* LoseGame.swift in Sources */,
 				9B176FCA22B7C0B9004E5649 /* GameViewController.swift in Sources */,

@@ -35,8 +35,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override func didMove(to view: SKView) {
         
-        let backgroundSound = SKAudioNode(fileNamed: "game.mp3")
-        self.addChild(backgroundSound)
+//        let backgroundSound = SKAudioNode(fileNamed: "game.mp3")
+//        self.addChild(backgroundSound)
         
         // setup contact delegate
         self.physicsWorld.contactDelegate = self
@@ -115,6 +115,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let nodeA = contact.bodyA.node
         let nodeB = contact.bodyB.node
         
+        
        // print("Collision detected!")
        // print("Node A: \(nodeA?.name)  Node B: \(nodeB?.name)")
         if(nodeA?.name == "player" && nodeB?.name == "cat")
@@ -138,23 +139,28 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                                             scene!.scaleMode = .aspectFill
                                             view?.presentScene(scene!)
                                         }
-                } else {
-                    print("m in else")
                 }
             }
-            else if(playerDirection == "down"){
+           if(playerDirection == "down"){
 //                print("Player y position: \(nodeA?.position.y)")
 //                print("Cat y position: \(nodeB?.position.y)")
                 nodeB?.removeFromParent()
                 self.Score = self.Score + 1
-                if(levelOneEnemies.count == 0)
-                {
-                    print("level one enemies died")
+            if(self.Score == 8)
+            {
+                print("------ All enemies died-------")
+                //go to win game screen
+                let scene = SKScene(fileNamed:"WinGame")
+                if (scene == nil) {
+                    print("Error loading level")
+                    return
                 }
-                if(level2Enemies.count == 0)
-                {
-                    print("level two enemies died")
+                else {
+                    scene!.scaleMode = .aspectFill
+                    view?.presentScene(scene!)
                 }
+            }
+            
                 
                 
             }

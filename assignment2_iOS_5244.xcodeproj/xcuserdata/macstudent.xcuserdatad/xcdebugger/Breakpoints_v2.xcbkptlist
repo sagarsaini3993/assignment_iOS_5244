@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "assignment2_iOS_5244/GameScene.swift"
-            timestampString = "582762965.422483"
+            timestampString = "582765975.023721"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "189"
-            endingLineNumber = "189"
+            startingLineNumber = "195"
+            endingLineNumber = "195"
             landmarkName = "didBegin(_:)"
             landmarkType = "7">
          </BreakpointContent>
