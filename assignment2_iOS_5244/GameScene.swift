@@ -21,6 +21,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     // GAME STAT SPRITES
     let livesLabel = SKLabelNode(text: "Lives: ")
+    let ScoreLabel = SKLabelNode(text: "Score: ")
     var playerDirection:String = ""
     
     
@@ -28,6 +29,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     // GAME STATISTIC VARIABLES
     var lives = 10
+    var Score = 0
     var movingEnemyRight :Bool = true
     
     
@@ -88,11 +90,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.livesLabel.fontColor = UIColor.magenta
         self.livesLabel.fontSize = 50;
         self.livesLabel.position = CGPoint(x:200,y:self.size.height-50)
+        // MARK: Add a lives label
+        // ------------------------
+        self.ScoreLabel.text = "Score: \(self.Score)"
+        self.ScoreLabel.fontName = "Avenir-Bold"
+        self.ScoreLabel.fontColor = UIColor.magenta
+        self.ScoreLabel.fontSize = 50;
+        self.ScoreLabel.position = CGPoint(x:500,y:self.size.height-50)
         
         
         // MARK: Add your sprites to the screen
+        addChild(ScoreLabel)
         addChild(livesLabel)
-        
         self.makeEnemies()
         
     }
@@ -134,6 +143,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 //                print("Player y position: \(nodeA?.position.y)")
 //                print("Cat y position: \(nodeB?.position.y)")
                 nodeB?.removeFromParent()
+                self.Score = self.Score + 1
+                if(levelOneEnemies.count == 0)
+                {
+                    print("level one enemies died")
+                }
+                if(level2Enemies.count == 0)
+                {
+                    print("level two enemies died")
+                }
+                
+                
             }
             
         }
@@ -245,8 +265,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var timeOfLastUpdate:TimeInterval?
  
     override func update(_ currentTime: TimeInterval) {
-        
-         self.livesLabel.text = "Lives: \(self.lives)"
+        //update lives and score
+        self.livesLabel.text = "Lives: \(self.lives)"
+        self.ScoreLabel.text = "Score: \(self.Score)"
         //self.player.position.x = self.player.position.x + 10
         
         if (self.player.position.x >= self.size.width) {
