@@ -15,6 +15,7 @@
 		9B176FCD22B7C0B9004E5649 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B176FCB22B7C0B9004E5649 /* Main.storyboard */; };
 		9B176FCF22B7C0BB004E5649 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9B176FCE22B7C0BB004E5649 /* Assets.xcassets */; };
 		9B176FD222B7C0BB004E5649 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B176FD022B7C0BB004E5649 /* LaunchScreen.storyboard */; };
+		9B1F8F3822BC261E001B1F5A /* LoseGame.sks in Resources */ = {isa = PBXBuildFile; fileRef = 9B1F8F3722BC261E001B1F5A /* LoseGame.sks */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		9B176FCE22B7C0BB004E5649 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9B176FD122B7C0BB004E5649 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9B176FD322B7C0BB004E5649 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9B1F8F3722BC261E001B1F5A /* LoseGame.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = LoseGame.sks; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +71,7 @@
 				9B176FCE22B7C0BB004E5649 /* Assets.xcassets */,
 				9B176FD022B7C0BB004E5649 /* LaunchScreen.storyboard */,
 				9B176FD322B7C0BB004E5649 /* Info.plist */,
+				9B1F8F3722BC261E001B1F5A /* LoseGame.sks */,
 			);
 			path = assignment2_iOS_5244;
 			sourceTree = "<group>";
@@ -133,6 +136,7 @@
 			files = (
 				9B176FCD22B7C0B9004E5649 /* Main.storyboard in Resources */,
 				9B176FC422B7C0B9004E5649 /* GameScene.sks in Resources */,
+				9B1F8F3822BC261E001B1F5A /* LoseGame.sks in Resources */,
 				9B176FCF22B7C0BB004E5649 /* Assets.xcassets in Resources */,
 				9B176FD222B7C0BB004E5649 /* LaunchScreen.storyboard in Resources */,
 				9B176FC622B7C0B9004E5649 /* Actions.sks in Resources */,

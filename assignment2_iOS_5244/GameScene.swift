@@ -27,7 +27,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     
     // GAME STATISTIC VARIABLES
-    var lives = 2
+    var lives = 10
     var movingEnemyRight :Bool = true
     
     
@@ -103,20 +103,75 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let nodeA = contact.bodyA.node
         let nodeB = contact.bodyB.node
         
-        print("Collision detected!")
-        print("Node A: \(nodeA?.name)  Node B: \(nodeB?.name)")
+       // print("Collision detected!")
+       // print("Node A: \(nodeA?.name)  Node B: \(nodeB?.name)")
         if(nodeA?.name == "player" && nodeB?.name == "cat")
         {
             print("player direction \(playerDirection)")
-            if(playerDirection == "left" || playerDirection == "right" || playerDirection == "not moving")
+            if(playerDirection == "up" || playerDirection == "left" || playerDirection == "right" || playerDirection == "not moving")
             {
+                print("playerDirection \(playerDirection)")
                 self.lives = self.lives - 1
-                print("lives after collision \(self.lives)" )
+                print("lives after collision  \(self.lives)" )
+                if(self.lives <= 0)
+                {
+                    print("game lose -----------")
+                                        //go to lose game screen
+                                        let scene = SKScene(fileNamed:"LoseGame")
+                                        if (scene == nil) {
+                                            print("Error loading level")
+                                            return
+                                        }
+                                        else {
+                                            scene!.scaleMode = .aspectFill
+                                            view?.presentScene(scene!)
+                                        }
+                } else {
+                    print("m in else")
+                }
+            }
+            else if(playerDirection == "down"){
+//                print("Player y position: \(nodeA?.position.y)")
+//                print("Cat y position: \(nodeB?.position.y)")
+                nodeB?.removeFromParent()
             }
             
-            print("Player y position: \(nodeA?.position.y)")
-            print("Cat y position: \(nodeB?.position.y)")
-            nodeB?.removeFromParent()
+        }
+        
+        //second condition
+        if(nodeA?.name == "cat" && nodeB?.name == "player")
+        {
+            //print("player direction \(playerDirection)")
+            if(playerDirection == "up" || playerDirection == "left" || playerDirection == "right" || playerDirection == "not moving")
+            {
+                print("playerDirection \(playerDirection)")
+                self.lives = self.lives - 1
+                print("lives after collision  \(self.lives)" )
+                //lose Game
+                
+                if(self.lives <= 9)
+                {
+                    print("game lose -----------")
+//                    //go to lose game screen
+//                    let scene = SKScene(fileNamed:"LoseGame")
+//                    if (scene == nil) {
+//                        print("Error loading level")
+//                        return
+//                    }
+//                    else {
+//                        scene!.scaleMode = .aspectFill
+//                        view?.presentScene(scene!)
+//                    }
+                } else {
+                    print("m in else")
+                }
+            }
+            else if(playerDirection == "down"){
+                //                print("Player y position: \(nodeA?.position.y)")
+                //                print("Cat y position: \(nodeB?.position.y)")
+                nodeB?.removeFromParent()
+            }
+            
         }
     }
     
@@ -155,6 +210,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         if (spriteTouched.name == "up") {
             print("UP PRESSED")
+            print(playerDirection)
             playerDirection = "up"
             if(self.player.position.y <= self.frame.size.height-250)
             {
@@ -165,6 +221,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         else if (spriteTouched.name == "down") {
             print("DOWN PRESSED")
+              print(playerDirection)
             playerDirection = "down"
             if(self.player.position.y >= 150)
             {
@@ -189,7 +246,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
  
     override func update(_ currentTime: TimeInterval) {
         
-        
+         self.livesLabel.text = "Lives: \(self.lives)"
         //self.player.position.x = self.player.position.x + 10
         
         if (self.player.position.x >= self.size.width) {
@@ -212,59 +269,30 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
 
-//        for i in 0..<level2Enemies.count {
-//            // move enemy left and righ
-//            let enemy = level2Enemies[i]
-//            enemy.position.x = enemy.position.x + 5
-//            if (enemy.position.x > self.frame.width) {
-//                enemy.position.x = 0
-//            }
-//        }
+        for i in 0..<level2Enemies.count {
+            // move enemy left and righ
+            let enemy = level2Enemies[i]
+            enemy.position.x = enemy.position.x + 5
+            if (enemy.position.x > self.frame.width) {
+                enemy.position.x = 0
+            }
+        }
         
-        
-        
-        
-        
-//        if(movingEnemyRight == true)
-//        {
-//            let RightMoveAction = SKAction.scaleX(to: +1, duration: 0)
-//            self.enemy.run(RightMoveAction)
-//            self.enemy1.run(RightMoveAction)
-//            enemy.position.x =     enemy.position.x + 10;
-//            enemy1.position.x =     enemy1.position.x + 10;
-//            if(enemy.position.x >= self.frame.width || enemy1.position.x >= self.frame.width )
-//            {
-//                movingEnemyRight = false
-//            }
-//        }
-//        else if (movingEnemyRight == false){
-//
-//            let leftMoveAction = SKAction.scaleX(to: -1, duration: 0)
-//            self.enemy.run(leftMoveAction)
-//            self.enemy1.run(leftMoveAction)
-//            enemy.position.x =     enemy.position.x - 10;
-//            enemy1.position.x =     enemy1.position.x - 10;
-//            if(enemy.position.x <= 0 || enemy1.position.x <= 0  )
-//            {
-//                movingEnemyRight = true
-//            }
-//
-//        }
-        
+      //set time for make cats on levels
         if (timeOfLastUpdate == nil) {
             timeOfLastUpdate = currentTime
         }
         // print a message every 3 seconds
         var timePassed = (currentTime - timeOfLastUpdate!)
         if (timePassed >= 3) {
-            if(levelOneEnemies.count <= 5 )
+            if(levelOneEnemies.count <= 3 )
             {
             print("HERE IS A MESSAGE!")
             timeOfLastUpdate = currentTime
             // make a cat
             self.makeEnemies()
             }
-            if(level2Enemies.count <= 5 )
+            if(level2Enemies.count <= 3 )
             {
                 print("HERE IS A MESSAGE!")
                 timeOfLastUpdate = currentTime
@@ -272,11 +300,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 self.makeEnemies()
             }
         }
-        if (timePassed >= 0.5) {
-            if (playerDirection != "left" || playerDirection != "right") {
-                playerDirection = "not moving"
-            }
-        }
+//        if (timePassed >= 5) {
+//
+//            if (playerDirection != "left" || playerDirection != "right") {
+//                playerDirection = "not moving"
+//            }
+//
+//        }
 
     }
    
@@ -313,7 +343,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         
         //-------------------second enemy------
-        let randX1 = Int(level2.position.x )
+        let randX1 = Int(level2.position.x - 300)
         let randY1 = Int(level2.position.y + 70)
         enemy1.position = CGPoint(x:randX1, y:randY1)
         print("enemy position \(randX) \(randY)")
