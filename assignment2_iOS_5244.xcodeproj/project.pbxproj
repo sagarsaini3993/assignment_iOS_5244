@@ -17,6 +17,7 @@
 		9B176FD222B7C0BB004E5649 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B176FD022B7C0BB004E5649 /* LaunchScreen.storyboard */; };
 		9B1F8F3822BC261E001B1F5A /* LoseGame.sks in Resources */ = {isa = PBXBuildFile; fileRef = 9B1F8F3722BC261E001B1F5A /* LoseGame.sks */; };
 		9B1F8F4022BC2F29001B1F5A /* LoseGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B1F8F3F22BC2F29001B1F5A /* LoseGame.swift */; };
+		9BEADB5A22BC400F00A2773E /* game.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 9BEADB5922BC400F00A2773E /* game.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		9B176FD322B7C0BB004E5649 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9B1F8F3722BC261E001B1F5A /* LoseGame.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = LoseGame.sks; sourceTree = "<group>"; };
 		9B1F8F3F22BC2F29001B1F5A /* LoseGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoseGame.swift; sourceTree = "<group>"; };
+		9BEADB5922BC400F00A2773E /* game.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = game.mp3; path = ../../Downloads/game.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,6 +50,7 @@
 		9B176FB522B7C0B9004E5649 = {
 			isa = PBXGroup;
 			children = (
+				9BEADB5922BC400F00A2773E /* game.mp3 */,
 				9B176FC022B7C0B9004E5649 /* assignment2_iOS_5244 */,
 				9B176FBF22B7C0B9004E5649 /* Products */,
 			);
@@ -139,6 +142,7 @@
 			files = (
 				9B176FCD22B7C0B9004E5649 /* Main.storyboard in Resources */,
 				9B176FC422B7C0B9004E5649 /* GameScene.sks in Resources */,
+				9BEADB5A22BC400F00A2773E /* game.mp3 in Resources */,
 				9B1F8F3822BC261E001B1F5A /* LoseGame.sks in Resources */,
 				9B176FCF22B7C0BB004E5649 /* Assets.xcassets in Resources */,
 				9B176FD222B7C0BB004E5649 /* LaunchScreen.storyboard in Resources */,

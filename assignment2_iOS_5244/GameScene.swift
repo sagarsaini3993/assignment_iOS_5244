@@ -35,6 +35,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override func didMove(to view: SKView) {
         
+        let backgroundSound = SKAudioNode(fileNamed: "game.mp3")
+        self.addChild(backgroundSound)
+        
         // setup contact delegate
         self.physicsWorld.contactDelegate = self
         
