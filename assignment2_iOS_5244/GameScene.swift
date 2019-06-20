@@ -21,7 +21,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     // GAME STAT SPRITES
     let livesLabel = SKLabelNode(text: "Lives: ")
-    
+    var playerDirection:String = ""
     
     
     
@@ -50,16 +50,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         // MARK: Setup Player
         self.player = self.childNode(withName: "player") as! SKSpriteNode
+        
         // make a physics body for the player
         self.player.physicsBody = SKPhysicsBody(rectangleOf: self.player!.frame.size)
         
-        self.player.physicsBody?.isDynamic = false
+        self.player.physicsBody?.isDynamic = true
         self.player.physicsBody?.affectedByGravity = false
         self.player.physicsBody?.allowsRotation = false
         
         // give him a category
         self.player.physicsBody?.categoryBitMask = 1        // set player cateogery = 1
-        self.player.physicsBody?.contactTestBitMask = 2     //notify system when player hits cat
+        self.player.physicsBody?.contactTestBitMask = 2
+        //notify system when player hits cat
+         self.player.physicsBody?.collisionBitMask = 0
         
         
         
@@ -101,7 +104,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let nodeB = contact.bodyB.node
         
         print("Collision detected!")
-        print("Node A: \(nodeA!.name)  Node B: \(nodeB!.name)")
+        print("Node A: \(nodeA?.name)  Node B: \(nodeB?.name)")
+        if(nodeA?.name == "player" && nodeB?.name == "cat")
+        {
+            print("player direction \(playerDirection)")
+            if(playerDirection == "left" || playerDirection == "right" || playerDirection == "not moving")
+            {
+                self.lives = self.lives - 1
+                print("lives after collision \(self.lives)" )
+            }
+            
+            print("Player y position: \(nodeA?.position.y)")
+            print("Cat y position: \(nodeB?.position.y)")
+            nodeB?.removeFromParent()
+        }
     }
     
     //--------------------------------move player-------------------------------
@@ -139,6 +155,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         if (spriteTouched.name == "up") {
             print("UP PRESSED")
+            playerDirection = "up"
             if(self.player.position.y <= self.frame.size.height-250)
             {
                 self.player.position.y = self.player.position.y + 150
@@ -148,16 +165,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         else if (spriteTouched.name == "down") {
             print("DOWN PRESSED")
+            playerDirection = "down"
             if(self.player.position.y >= 150)
             {
                 self.player.position.y = self.player.position.y - 150
             }
         }
         else if (spriteTouched.name == "left") {
+            playerDirection = "left"
             print("LEFT PRESSED")
             self.player.position.x = self.player.position.x - 50
         }
         else if (spriteTouched.name == "right") {
+            playerDirection = "right"
             print("RIGHT PRESSED")
             self.player.position.x = self.player.position.x + 50
         }
@@ -185,21 +205,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         for i in 0..<levelOneEnemies.count {
             // move enemy left and righ
             let enemy = levelOneEnemies[i]
-            enemy.position.x = enemy.position.x + 10
+            enemy.position.x = enemy.position.x + 5
             if (enemy.position.x > self.frame.width) {
                 enemy.position.x = 0
             }
         }
         
 
-        for i in 0..<level2Enemies.count {
-            // move enemy left and righ
-            let enemy = level2Enemies[i]
-            enemy.position.x = enemy.position.x + 5
-            if (enemy.position.x > self.frame.width) {
-                enemy.position.x = 0
-            }
-        }
+//        for i in 0..<level2Enemies.count {
+//            // move enemy left and righ
+//            let enemy = level2Enemies[i]
+//            enemy.position.x = enemy.position.x + 5
+//            if (enemy.position.x > self.frame.width) {
+//                enemy.position.x = 0
+//            }
+//        }
         
         
         
@@ -236,7 +256,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         // print a message every 3 seconds
         var timePassed = (currentTime - timeOfLastUpdate!)
-        if (timePassed >= 1.5) {
+        if (timePassed >= 3) {
             if(levelOneEnemies.count <= 5 )
             {
             print("HERE IS A MESSAGE!")
@@ -250,6 +270,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 timeOfLastUpdate = currentTime
                 // make a cat
                 self.makeEnemies()
+            }
+        }
+        if (timePassed >= 0.5) {
+            if (playerDirection != "left" || playerDirection != "right") {
+                playerDirection = "not moving"
             }
         }
 
@@ -272,15 +297,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         // setup physics for each cat
         enemy.physicsBody = SKPhysicsBody(rectangleOf: enemy.size)
-        enemy.physicsBody?.isDynamic = false
+        enemy.physicsBody?.isDynamic = true
         enemy.physicsBody?.affectedByGravity = false
         enemy.physicsBody?.allowsRotation = false
         
         // give him a category
         enemy.physicsBody?.categoryBitMask = 2
         enemy.physicsBody?.contactTestBitMask = 1
-        
-        
+        enemy.physicsBody?.collisionBitMask = 0
+        enemy.name = "cat"
         addChild(enemy)
         
         // add enemy to level 1 array
@@ -295,22 +320,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         // setup physics for each cat
         enemy1.physicsBody = SKPhysicsBody(rectangleOf: enemy.size)
-        enemy1.physicsBody?.isDynamic = false
+        enemy1.physicsBody?.isDynamic = true
         enemy1.physicsBody?.affectedByGravity = false
         enemy1.physicsBody?.allowsRotation = false
         
         // give him a category
         enemy1.physicsBody?.categoryBitMask = 2
         enemy1.physicsBody?.contactTestBitMask = 1
-        
+        enemy1.physicsBody?.collisionBitMask = 0
+        enemy1.name = "cat"
         addChild(enemy1)
         // add enemy to level 1 array
         self.level2Enemies.append(enemy1)
         
-        
-        
-        
-        
+     
     }
     
 }
