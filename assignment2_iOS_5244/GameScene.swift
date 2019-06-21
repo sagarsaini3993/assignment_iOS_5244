@@ -147,14 +147,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     }
                 }
             }
-            if(playerDirection == "down"){
+            //player jump on the enemy
+            else if(playerDirection == "down"){
                 //                print("Player y position: \(nodeA?.position.y)")
                 //                print("Cat y position: \(nodeB?.position.y)")
                 
                 nodeB?.removeFromParent()
                 
-               // makeEggs(positionXEgg: Int(player.position.x),positionYEgg: Int(player.position.y))
                 self.Score = self.Score + 1
+                print("new scores-----------\(Score)")
                 if(self.Score == 8)
                 {
                     print("------ All enemies died-------")
@@ -169,14 +170,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                         view?.presentScene(scene!)
                     }
                 }
-                
-                
-                
+                else{
+                   makeEggs(positionXEgg: Int(nodeB!.position.x),positionYEgg: Int((nodeB!.position.y)))
+                   
+                }
+
             }
-            
         }
-        
-        
     }
     
     //--------------------------------move player-------------------------------
@@ -239,6 +239,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var timeOfLastUpdate:TimeInterval?
     
     override func update(_ currentTime: TimeInterval) {
+        
+    
         //update lives and score
         self.livesLabel.text = "Lives: \(self.lives)"
         self.ScoreLabel.text = "Score: \(self.Score)"
@@ -308,6 +310,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     // MARK: MAKE ENEMIES
     var levelOneEnemies:[SKSpriteNode] = []
     var level2Enemies:[SKSpriteNode] = []
+    var eggEnemies :[SKSpriteNode] = []
     func makeEnemies() {
         let enemy = SKSpriteNode(imageNamed: "enemy")
         let enemy1 = SKSpriteNode(imageNamed: "enemy")
@@ -383,11 +386,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         egg.physicsBody?.categoryBitMask = 2
         egg.physicsBody?.contactTestBitMask = 1
         egg.physicsBody?.collisionBitMask = 0
-        egg.name = "cat"
+        egg.name = "cat1"
         addChild(egg)
         
         // add enemy to level 1 array
-        self.levelOneEnemies.append(egg);
+        self.eggEnemies.append(egg)
         
        
     }
