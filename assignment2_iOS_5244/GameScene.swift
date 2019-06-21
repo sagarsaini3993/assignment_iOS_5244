@@ -13,7 +13,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     
     var player:SKNode!
-    var jumpButton:SKLabelNode!
+    
+    
     var level1 : SKNode!
     var level2 : SKNode!
     var level3 : SKNode!
@@ -31,12 +32,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var lives = 10
     var Score = 0
     var movingEnemyRight :Bool = true
+   
     
     
     override func didMove(to view: SKView) {
         
-//        let backgroundSound = SKAudioNode(fileNamed: "game.mp3")
-//        self.addChild(backgroundSound)
+            createBackground()
+        
+        //        let backgroundSound = SKAudioNode(fileNamed: "game.mp3")
+        //        self.addChild(backgroundSound)
         
         // setup contact delegate
         self.physicsWorld.contactDelegate = self
@@ -50,7 +54,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.level3 = self.childNode(withName: "level3")
         self.level4 = self.childNode(withName: "level4")
         // level1.position = CGPoint(x:self.size.width/2, y:self.size.height/2)
-        self.jumpButton = self.childNode(withName: "jumpButton") as! SKLabelNode
+       
+        
         
         
         // MARK: Setup Player
@@ -67,7 +72,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.player.physicsBody?.categoryBitMask = 1        // set player cateogery = 1
         self.player.physicsBody?.contactTestBitMask = 2
         //notify system when player hits cat
-         self.player.physicsBody?.collisionBitMask = 0
+        self.player.physicsBody?.collisionBitMask = 0
         
         
         
@@ -107,17 +112,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         addChild(livesLabel)
         self.makeEnemies()
         
+        
     }
     
-    
+
     //--------------------------------2 things contact ------------------------------
     func didBegin(_ contact: SKPhysicsContact) {
         let nodeA = contact.bodyA.node
         let nodeB = contact.bodyB.node
         
         
-       // print("Collision detected!")
-       // print("Node A: \(nodeA?.name)  Node B: \(nodeB?.name)")
+        // print("Collision detected!")
+        // print("Node A: \(nodeA?.name)  Node B: \(nodeB?.name)")
         if(nodeA?.name == "player" && nodeB?.name == "cat")
         {
             print("player direction \(playerDirection)")
@@ -129,94 +135,63 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 if(self.lives <= 0)
                 {
                     print("game lose -----------")
-                                        //go to lose game screen
-                                        let scene = SKScene(fileNamed:"LoseGame")
-                                        if (scene == nil) {
-                                            print("Error loading level")
-                                            return
-                                        }
-                                        else {
-                                            scene!.scaleMode = .aspectFill
-                                            view?.presentScene(scene!)
-                                        }
+                    //go to lose game screen
+                    let scene = SKScene(fileNamed:"LoseGame")
+                    if (scene == nil) {
+                        print("Error loading level")
+                        return
+                    }
+                    else {
+                        scene!.scaleMode = .aspectFill
+                        view?.presentScene(scene!)
+                    }
                 }
             }
-           if(playerDirection == "down"){
-//                print("Player y position: \(nodeA?.position.y)")
-//                print("Cat y position: \(nodeB?.position.y)")
+            if(playerDirection == "down"){
+                //                print("Player y position: \(nodeA?.position.y)")
+                //                print("Cat y position: \(nodeB?.position.y)")
+                
                 nodeB?.removeFromParent()
+                
+               // makeEggs(positionXEgg: Int(player.position.x),positionYEgg: Int(player.position.y))
                 self.Score = self.Score + 1
-            if(self.Score == 8)
-            {
-                print("------ All enemies died-------")
-                //go to win game screen
-                let scene = SKScene(fileNamed:"WinGame")
-                if (scene == nil) {
-                    print("Error loading level")
-                    return
+                if(self.Score == 8)
+                {
+                    print("------ All enemies died-------")
+                    //go to win game screen
+                    let scene = SKScene(fileNamed:"WinGame")
+                    if (scene == nil) {
+                        print("Error loading level")
+                        return
+                    }
+                    else {
+                        scene!.scaleMode = .aspectFill
+                        view?.presentScene(scene!)
+                    }
                 }
-                else {
-                    scene!.scaleMode = .aspectFill
-                    view?.presentScene(scene!)
-                }
-            }
-            
+                
                 
                 
             }
             
         }
         
-        //second condition
-        if(nodeA?.name == "cat" && nodeB?.name == "player")
-        {
-            //print("player direction \(playerDirection)")
-            if(playerDirection == "up" || playerDirection == "left" || playerDirection == "right" || playerDirection == "not moving")
-            {
-                print("playerDirection \(playerDirection)")
-                self.lives = self.lives - 1
-                print("lives after collision  \(self.lives)" )
-                //lose Game
-                
-                if(self.lives <= 9)
-                {
-                    print("game lose -----------")
-//                    //go to lose game screen
-//                    let scene = SKScene(fileNamed:"LoseGame")
-//                    if (scene == nil) {
-//                        print("Error loading level")
-//                        return
-//                    }
-//                    else {
-//                        scene!.scaleMode = .aspectFill
-//                        view?.presentScene(scene!)
-//                    }
-                } else {
-                    print("m in else")
-                }
-            }
-            else if(playerDirection == "down"){
-                //                print("Player y position: \(nodeA?.position.y)")
-                //                print("Cat y position: \(nodeB?.position.y)")
-                nodeB?.removeFromParent()
-            }
-            
-        }
+        
     }
     
     //--------------------------------move player-------------------------------
-//    func moveShip (moveBy: CGFloat, forTheKey: String) {
-//        let moveAction = SKAction.moveBy(x: moveBy, y: 0, duration: 1)
-//        let repeatForEver = SKAction.repeatForever(moveAction)
-//        let seq = SKAction.sequence([moveAction, repeatForEver])
-//
-//        //run the action on your ship
-//        player.run(seq, withKey: forTheKey)
-//    }
+    //    func moveShip (moveBy: CGFloat, forTheKey: String) {
+    //        let moveAction = SKAction.moveBy(x: moveBy, y: 0, duration: 1)
+    //        let repeatForEver = SKAction.repeatForever(moveAction)
+    //        let seq = SKAction.sequence([moveAction, repeatForEver])
+    //
+    //        //run the action on your ship
+    //        player.run(seq, withKey: forTheKey)
+    //    }
     
     //--------------------------------touch function-------------------------------
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-     
+        
         let touch = touches.first
         if (touch == nil) {
             return
@@ -226,16 +201,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let spriteTouched = self.atPoint(mouseLocation)
         
         
-        if (spriteTouched.name == "jumpButton") {
-            print("PRESSED THE BUTTON")
-            
-            let jumpAction = SKAction.applyImpulse(
-                CGVector(dx:0, dy:2000),
-                duration: 0.5)
-            
-            self.player.run(jumpAction)
-            
-        }
         
         if (spriteTouched.name == "up") {
             print("UP PRESSED")
@@ -250,7 +215,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         else if (spriteTouched.name == "down") {
             print("DOWN PRESSED")
-              print(playerDirection)
+            print(playerDirection)
             playerDirection = "down"
             if(self.player.position.y >= 150)
             {
@@ -272,7 +237,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     //---------------------Update function--------------------------------
     var timeOfLastUpdate:TimeInterval?
- 
+    
     override func update(_ currentTime: TimeInterval) {
         //update lives and score
         self.livesLabel.text = "Lives: \(self.lives)"
@@ -298,7 +263,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         }
         
-
+        
         for i in 0..<level2Enemies.count {
             // move enemy left and righ
             let enemy = level2Enemies[i]
@@ -308,7 +273,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         }
         
-      //set time for make cats on levels
+        //set time for make cats on levels
         if (timeOfLastUpdate == nil) {
             timeOfLastUpdate = currentTime
         }
@@ -317,10 +282,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if (timePassed >= 3) {
             if(levelOneEnemies.count <= 3 )
             {
-            print("HERE IS A MESSAGE!")
-            timeOfLastUpdate = currentTime
-            // make a cat
-            self.makeEnemies()
+                print("HERE IS A MESSAGE!")
+                timeOfLastUpdate = currentTime
+                // make a cat
+                self.makeEnemies()
             }
             if(level2Enemies.count <= 3 )
             {
@@ -330,16 +295,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 self.makeEnemies()
             }
         }
-//        if (timePassed >= 5) {
-//
-//            if (playerDirection != "left" || playerDirection != "right") {
-//                playerDirection = "not moving"
-//            }
-//
-//        }
-
+        //        if (timePassed >= 5) {
+        //
+        //            if (playerDirection != "left" || playerDirection != "right") {
+        //                playerDirection = "not moving"
+        //            }
+        //
+        //        }
+        
     }
-   
+    
     // MARK: MAKE ENEMIES
     var levelOneEnemies:[SKSpriteNode] = []
     var level2Enemies:[SKSpriteNode] = []
@@ -393,7 +358,51 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // add enemy to level 1 array
         self.level2Enemies.append(enemy1)
         
-     
+        
+    }
+    
+    func makeEggs(positionXEgg: Int, positionYEgg:Int) {
+        let egg = SKSpriteNode(imageNamed: "egg")
+      
+        
+        // lets add some enemies
+        // generate a random (x,y) for the cat
+        let randX = positionXEgg
+        let randY = positionYEgg
+        egg.position = CGPoint(x:randX, y:randY)
+        print("enemy position \(randX) \(randY)")
+        
+        
+        // setup physics for each cat
+        egg.physicsBody = SKPhysicsBody(rectangleOf: egg.size)
+        egg.physicsBody?.isDynamic = true
+        egg.physicsBody?.affectedByGravity = false
+        egg.physicsBody?.allowsRotation = false
+        
+        // give him a category
+        egg.physicsBody?.categoryBitMask = 2
+        egg.physicsBody?.contactTestBitMask = 1
+        egg.physicsBody?.collisionBitMask = 0
+        egg.name = "cat"
+        addChild(egg)
+        
+        // add enemy to level 1 array
+        self.levelOneEnemies.append(egg);
+        
+       
+    }
+    
+    func createBackground() {
+        
+        let backgroundTexture = SKTexture(imageNamed: "background")
+        for i in 0 ... 1 {
+            let background = SKSpriteNode(texture: backgroundTexture)
+            background.zPosition = -30
+            background.anchorPoint = CGPoint.zero
+            background.position = CGPoint(x: (backgroundTexture.size().width * CGFloat(i)) - CGFloat(1 * i), y: 100)
+            addChild(background)
+            
+        }
     }
     
 }
