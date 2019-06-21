@@ -32,12 +32,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var lives = 10
     var Score = 0
     var movingEnemyRight :Bool = true
-   
+    
     
     
     override func didMove(to view: SKView) {
         
-            createBackground()
+        createBackground()
         
         //        let backgroundSound = SKAudioNode(fileNamed: "game.mp3")
         //        self.addChild(backgroundSound)
@@ -54,7 +54,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.level3 = self.childNode(withName: "level3")
         self.level4 = self.childNode(withName: "level4")
         // level1.position = CGPoint(x:self.size.width/2, y:self.size.height/2)
-       
+        
         
         
         
@@ -115,7 +115,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
     }
     
-
+    
     //--------------------------------2 things contact ------------------------------
     func didBegin(_ contact: SKPhysicsContact) {
         let nodeA = contact.bodyA.node
@@ -124,7 +124,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         // print("Collision detected!")
         // print("Node A: \(nodeA?.name)  Node B: \(nodeB?.name)")
-        if(nodeA?.name == "player" && nodeB?.name == "cat")
+        //remove cat and covert into egg
+        //tried for remmove egg
+//        if(  (nodeA?.name == "player" && nodeB?.name == "cat1"))
+//        {
+//            nodeB?.removeFromParent()
+//        }
+        if((nodeA?.name == "player" && nodeB?.name == "cat") )
         {
             print("player direction \(playerDirection)")
             if(playerDirection == "up" || playerDirection == "left" || playerDirection == "right" || playerDirection == "not moving")
@@ -147,8 +153,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     }
                 }
             }
-            //player jump on the enemy
-            else if(playerDirection == "down"){
+                //player jump on the enemy
+            else if(playerDirection == "down") {
                 //                print("Player y position: \(nodeA?.position.y)")
                 //                print("Cat y position: \(nodeB?.position.y)")
                 
@@ -156,7 +162,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 
                 self.Score = self.Score + 1
                 print("new scores-----------\(Score)")
-                if(self.Score == 8)
+                if(self.Score == 16)
                 {
                     print("------ All enemies died-------")
                     //go to win game screen
@@ -171,12 +177,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     }
                 }
                 else{
-                   makeEggs(positionXEgg: Int(nodeB!.position.x),positionYEgg: Int((nodeB!.position.y)))
-                   
+                    makeEggs(positionXEgg: Int(nodeB!.position.x),positionYEgg: Int((nodeB!.position.y)))
+                    
                 }
-
+                
             }
         }
+        
     }
     
     //--------------------------------move player-------------------------------
@@ -240,7 +247,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override func update(_ currentTime: TimeInterval) {
         
-    
+        
         //update lives and score
         self.livesLabel.text = "Lives: \(self.lives)"
         self.ScoreLabel.text = "Score: \(self.Score)"
@@ -366,7 +373,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func makeEggs(positionXEgg: Int, positionYEgg:Int) {
         let egg = SKSpriteNode(imageNamed: "egg")
-      
+        
         
         // lets add some enemies
         // generate a random (x,y) for the cat
@@ -392,7 +399,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // add enemy to level 1 array
         self.eggEnemies.append(egg)
         
-       
+        
     }
     
     func createBackground() {
